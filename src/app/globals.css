@@ -1,0 +1,602 @@
+/* Updated: 2025-12-27T21:05:51.966Z */
+/* Updated: 2025-12-27T19:52:08.035Z */
+/* Updated: 2025-12-27T19:48:12.674Z */
+/* Updated: 2025-12-24T18:02:21.972Z */
+/* Updated: 2025-12-24T17:22:46.519Z */
+/* Updated: 2025-12-24T14:11:08.776Z */
+/* Updated: 2025-12-23T21:05:19.006Z */
+/* Updated: 2025-12-23T20:24:14.992Z */
+/* Updated: 2025-12-23T19:42:33.756Z */
+/* Updated: 2025-12-23T19:33:28.052Z */
+/* Updated: 2025-12-23T19:14:34.117Z */
+/* Updated: 2025-12-23T13:16:27.893Z */
+/* Updated: 2025-12-22T23:43:29.976Z */
+/* Updated: 2025-12-21T11:31:23.888Z */
+/* Updated: 2025-12-21T11:27:40.129Z */
+/* Updated: 2025-12-21T11:26:18.267Z */
+/* Updated: 2025-12-21T08:55:59.223Z */
+/* Updated: 2025-12-20T17:55:14.626Z */
+/* Updated: 2025-12-20T17:05:49.077Z */
+/* Updated: 2025-12-18T16:54:38.821Z */
+/* Updated: 2025-12-18T15:26:51.349Z */
+/* Updated: 2025-12-18T13:23:00.795Z */
+/* Updated: 2025-12-17T23:18:05.730Z */
+/* Updated: 2025-12-17T12:12:22.901Z */
+/* Updated: 2025-12-17T12:10:03.046Z */
+/* Updated: 2025-12-17T11:04:46.098Z */
+/* Updated: 2025-12-16T22:45:36.745Z */
+/* Updated: 2025-12-16T14:24:46.521Z */
+/* Updated: 2025-12-16T14:24:06.424Z */
+/* Updated: 2025-12-16T14:23:19.037Z */
+/* Updated: 2025-12-16T14:22:17.565Z */
+/* Updated: 2025-12-16T14:21:46.306Z */
+/* Updated: 2025-12-16T14:21:07.314Z */
+/* Updated: 2025-12-16T14:20:38.489Z */
+/* Updated: 2025-12-16T14:19:30.473Z */
+/* Updated: 2025-12-16T14:17:57.731Z */
+/* Updated: 2025-12-16T14:16:48.000Z */
+/* Updated: 2025-12-16T14:10:02.438Z */
+/* Updated: 2025-12-16T12:17:23.332Z */
+/* Updated: 2025-12-12T15:40:19.024Z */
+/* Updated: 2025-12-11T14:04:08.801Z */
+/* Updated: 2025-12-11T12:10:08.575Z */
+/* Updated: 2025-12-11T10:35:08.005Z */
+/* Updated: 2025-12-11T09:56:55.145Z */
+/* Updated: 2025-12-11T09:56:15.537Z */
+/* Updated: 2025-12-11T09:55:24.348Z */
+/* Updated: 2025-12-11T09:52:22.571Z */
+/* Updated: 2025-12-11T09:46:59.965Z */
+/* Updated: 2025-12-10T20:17:33.123Z */
+/* Updated: 2025-12-10T20:16:04.691Z */
+/* Updated: 2025-12-10T20:03:04.223Z */
+/* Updated: 2025-12-10T14:58:22.881Z */
+/* Updated: 2025-12-10T08:05:38.098Z */
+/* Updated: 2025-12-10T07:23:13.442Z */
+/* Updated: 2025-12-10T07:13:29.252Z */
+/* Updated: 2025-12-10T07:12:19.325Z */
+/* Updated: 2025-12-09T20:40:28.301Z */
+/* Updated: 2025-12-09T20:39:29.387Z */
+/* Updated: 2025-12-09T19:31:19.279Z */
+/* Updated: 2025-12-09T19:30:45.097Z */
+/* Updated: 2025-12-09T19:11:41.921Z */
+/* Updated: 2025-12-09T19:08:46.578Z */
+/* Updated: 2025-12-09T15:43:20.658Z */
+/* Updated: 2025-12-09T15:42:36.296Z */
+/* Updated: 2025-12-09T14:54:19.159Z */
+/* Updated: 2025-12-09T14:46:33.621Z */
+/* Updated: 2025-12-09T14:43:09.065Z */
+/* Updated: 2025-12-09T14:38:03.368Z */
+/* Updated: 2025-12-09T14:24:42.026Z */
+/* Updated: 2025-12-09T14:04:37.762Z */
+/* Updated: 2025-12-09T12:11:19.460Z */
+/* Updated: 2025-12-09T12:08:18.462Z */
+/* Updated: 2025-12-09T11:16:01.138Z */
+/* Updated: 2025-12-09T09:50:56.641Z */
+/* Updated: 2025-12-08T21:24:28.478Z */
+/* Updated: 2025-12-08T17:40:52.190Z */
+/* Updated: 2025-12-08T17:30:01.079Z */
+/* Updated: 2025-12-08T15:41:08.165Z */
+/* Updated: 2025-12-08T15:41:03.681Z */
+/* Updated: 2025-12-08T15:06:22.621Z */
+/* Updated: 2025-12-08T15:06:21.564Z */
+/* Updated: 2025-12-08T14:14:55.789Z */
+/* Updated: 2025-12-08T14:02:00.059Z */
+/* Updated: 2025-12-08T14:01:47.965Z */
+/* Updated: 2025-12-08T14:01:46.759Z */
+/* Updated: 2025-12-08T13:53:41.465Z */
+/* Updated: 2025-12-08T13:53:40.157Z */
+/* Updated: 2025-12-08T13:25:06.445Z */
+/* Updated: 2025-12-08T13:22:26.881Z */
+/* Updated: 2025-12-08T12:54:49.796Z */
+/* Updated: 2025-12-08T12:32:57.470Z */
+/* Updated: 2025-12-08T12:30:40.518Z */
+/* Updated: 2025-12-08T08:30:32.897Z */
+/* Updated: 2025-12-08T01:59:04.681Z */
+/* Updated: 2025-12-07T22:55:52.301Z */
+/* Updated: 2025-12-07T21:27:38.327Z */
+/* Updated: 2025-12-07T21:22:00.849Z */
+/* Updated: 2025-12-07T17:44:31.562Z */
+/* Updated: 2025-12-07T11:20:56.555Z */
+/* Updated: 2025-12-07T11:15:18.687Z */
+/* Updated: 2025-12-07T07:48:53.743Z */
+/* Updated: 2025-12-06T23:19:13.711Z */
+/* Updated: 2025-12-06T23:19:06.793Z */
+/* Updated: 2025-12-06T21:26:27.633Z */
+/* Updated: 2025-12-06T21:06:15.574Z */
+/* Updated: 2025-12-06T20:52:50.478Z */
+/* Updated: 2025-12-06T19:57:53.161Z */
+/* Updated: 2025-12-06T18:39:11.466Z */
+/* Updated: 2025-12-06T17:18:25.494Z */
+/* Updated: 2025-12-06T07:26:55.399Z */
+/* Updated: 2025-12-05T21:54:03.029Z */
+/* Updated: 2025-12-05T21:39:01.494Z */
+/* Updated: 2025-12-05T21:14:19.741Z */
+/* Updated: 2025-12-05T21:13:07.171Z */
+/* Updated: 2025-12-05T19:54:49.584Z */
+/* Updated: 2025-12-05T15:35:46.372Z */
+/* Updated: 2025-12-05T10:25:58.997Z */
+/* Updated: 2025-12-05T10:25:41.789Z */
+/* Updated: 2025-12-05T06:49:14.776Z */
+/* Updated: 2025-12-05T06:13:26.393Z */
+/* Updated: 2025-12-05T00:39:23.834Z */
+/* Updated: 2025-12-04T22:28:30.091Z */
+/* Updated: 2025-12-04T21:02:37.119Z */
+/* Updated: 2025-12-04T20:05:39.259Z */
+/* Updated: 2025-12-04T19:59:41.172Z */
+/* Updated: 2025-12-04T19:49:12.230Z */
+/* Updated: 2025-12-03T21:04:05.736Z */
+/* Updated: 2025-12-03T19:40:46.162Z */
+/* Updated: 2025-12-03T12:22:35.829Z */
+/* Updated: 2025-12-03T11:24:44.497Z */
+/* Updated: 2025-12-03T10:03:02.136Z */
+/* Updated: 2025-12-03T09:44:02.541Z */
+/* Updated: 2025-12-03T09:42:58.274Z */
+/* Updated: 2025-12-03T09:20:06.326Z */
+/* Updated: 2025-12-02T19:59:16.132Z */
+/* Updated: 2025-12-02T14:26:33.979Z */
+/* Updated: 2025-12-02T10:22:58.082Z */
+/* Updated: 2025-11-28T20:44:51.934Z */
+/* Updated: 2025-11-28T12:29:45.060Z */
+/* Updated: 2025-11-28T10:37:12.855Z */
+/* Updated: 2025-11-28T09:15:17.819Z */
+/* Updated: 2025-11-27T21:08:18.194Z */
+/* Updated: 2025-11-27T20:55:31.482Z */
+/* Updated: 2025-11-27T20:28:20.973Z */
+/* Updated: 2025-11-27T20:19:44.451Z */
+/* Updated: 2025-11-27T20:10:06.988Z */
+/* Updated: 2025-11-27T19:39:32.486Z */
+/* Updated: 2025-11-27T19:39:24.042Z */
+/* Updated: 2025-11-27T19:17:20.870Z */
+/* Updated: 2025-11-27T19:15:14.972Z */
+/* Updated: 2025-11-27T19:11:30.266Z */
+/* Updated: 2025-11-27T19:05:20.161Z */
+/* Updated: 2025-11-27T18:56:11.593Z */
+/* Updated: 2025-11-27T18:45:27.329Z */
+/* Updated: 2025-11-27T18:45:20.989Z */
+/* Updated: 2025-11-27T18:45:20.628Z */
+/* Updated: 2025-11-27T18:29:00.662Z */
+/* Updated: 2025-11-27T18:14:50.124Z */
+/* Updated: 2025-11-27T18:14:33.640Z */
+/* Updated: 2025-11-27T18:13:28.100Z */
+/* Updated: 2025-11-27T18:04:00.828Z */
+/* Updated: 2025-11-27T17:10:53.790Z */
+/* Updated: 2025-11-27T17:10:52.421Z */
+/* Updated: 2025-11-27T17:10:52.099Z */
+/* Updated: 2025-11-27T17:10:41.684Z */
+/* Updated: 2025-11-27T16:48:51.125Z */
+/* Updated: 2025-11-27T16:30:46.011Z */
+/* Updated: 2025-11-27T14:01:30.773Z */
+/* Updated: 2025-11-26T15:38:31.485Z */
+/* Updated: 2025-11-26T13:15:29.755Z */
+/* Updated: 2025-11-26T11:30:21.081Z */
+/* Updated: 2025-11-25T15:41:46.521Z */
+/* Updated: 2025-11-25T15:37:27.220Z */
+/* Updated: 2025-11-25T15:30:43.343Z */
+/* Updated: 2025-11-25T15:30:42.797Z */
+/* Updated: 2025-11-25T15:29:24.291Z */
+/* Updated: 2025-11-25T11:30:57.658Z */
+/* Updated: 2025-11-24T13:58:28.896Z */
+/* Updated: 2025-11-24T13:56:57.823Z */
+/* Updated: 2025-11-24T13:44:42.386Z */
+/* Updated: 2025-11-24T12:41:51.287Z */
+/* Updated: 2025-11-24T12:38:39.194Z */
+/* Updated: 2025-11-24T12:05:19.385Z */
+/* Updated: 2025-11-24T12:04:51.821Z */
+/* Updated: 2025-11-24T12:04:20.732Z */
+/* Updated: 2025-11-20T12:48:08.408Z */
+/* Updated: 2025-11-18T16:13:41.452Z */
+/* Updated: 2025-11-18T16:13:20.445Z */
+/* Updated: 2025-11-18T16:04:15.641Z */
+/* Updated: 2025-11-18T15:26:32.909Z */
+/* Updated: 2025-11-18T15:09:11.516Z */
+/* Updated: 2025-11-18T15:07:15.800Z */
+/* Updated: 2025-11-17T03:10:47.627Z */
+/* Updated: 2025-11-13T12:47:52.661Z */
+/* Updated: 2025-11-12T13:19:20.614Z */
+
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Brand Color Tokens */
+  --color-bg-primary: #F5F3F0;
+  --color-bg-secondary: #E5D8C5;
+  --color-text-primary: #1F2937;
+  --color-accent-sage: #89A38F;
+  --color-accent-gold: #C6A76D;
+  --color-neutral-dark: #374151;
+  --color-neutral-light: #FAFAF9;
+  
+  /* Typography */
+  /* Fonts are provided via next/font in src/app/layout.tsx */
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(135deg, #F5F3F0 0%, #E5D8C5 100%);
+  --gradient-button: linear-gradient(90deg, #89A38F 0%, #C6A76D 100%);
+  
+  /* Original theme tokens */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  --color-accent-pink: #D4A5A5;
+  --color-accent-sage: #89A38F;
+  --color-accent-gold: #C6A76D;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+  }
+  
+  body {
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  
+  /* Hide scrollbar utility */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+  
+  h1 {
+    font-size: 64px;
+    line-height: 1.1;
+    font-weight: 700;
+  }
+  
+  h2 {
+    font-size: 42px;
+    line-height: 1.2;
+  }
+  
+  h3 {
+    font-family: var(--font-body);
+    font-size: 28px;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+  
+  p {
+    color: var(--color-neutral-dark);
+  }
+  
+  /* OPTIMIZED: Lightweight fade-in only */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  /* OPTIMIZED: Simplified float - less GPU intensive */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+  
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+  
+  /* OPTIMIZED: Simplified slide animation */
+  @keyframes slide-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .animate-slide-left {
+    animation: slide-left 60s linear infinite;
+    display: flex;
+    width: max-content;
+    will-change: transform;
+  }
+  
+  .animate-slide-left:hover {
+    animation-play-state: paused;
+  }
+  
+  /* Smooth transitions - OPTIMIZED */
+  a, button {
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+  
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    
+    a:visited {
+      color: inherit;
+    }
+    
+    a:active, a:focus {
+      outline: none;
+    }
+  
+  /* Input styling */
+  .ge-input {
+    height: 48px;
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .ge-input svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  /* Date picker styles */
+  .ge-date-start {
+    background: var(--color-accent-sage) !important;
+    color: white !important;
+    font-weight: 600;
+    border: 2px solid var(--color-accent-sage) !important;
+    border-radius: 8px;
+  }
+  
+  .ge-date-end {
+    background: var(--color-accent-sage) !important;
+    color: white !important;
+    font-weight: 600;
+    border: 2px solid var(--color-accent-sage) !important;
+    border-radius: 8px;
+  }
+  
+  .ge-date-in-range {
+    background: rgba(137, 163, 143, 0.12) !important;
+    color: #1F2937 !important;
+  }
+  
+  /* Screen reader only */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  
+  /* Smooth scroll for dropdown */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .smooth-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .smooth-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+  
+  .smooth-scroll::-webkit-scrollbar-thumb {
+    background: var(--color-accent-sage);
+    border-radius: 3px;
+  }
+  
+  .smooth-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent-gold);
+  }
+  
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    body {
+      font-size: 16px;
+    }
+    
+    h1 {
+      font-size: 38px;
+    }
+    
+    h2 {
+      font-size: 30px;
+    }
+    
+    h3 {
+      font-size: 22px;
+    }
+  }
+}
+
+/* Hide Next.js error overlay */
+nextjs-portal {
+  display: none !important;
+}
+
+/* CLS Prevention - Fixed aspect ratios */
+.aspect-16-9 { aspect-ratio: 16/9; }
+.aspect-4-3 { aspect-ratio: 4/3; }
+.aspect-3-2 { aspect-ratio: 3/2; }
+.aspect-1-1 { aspect-ratio: 1/1; }
+
+/* Skeleton loading animation - lightweight */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+.skeleton-loader {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+/* Safe area padding for mobile devices */
+.safe-area-inset-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* Content visibility for better rendering performance */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
