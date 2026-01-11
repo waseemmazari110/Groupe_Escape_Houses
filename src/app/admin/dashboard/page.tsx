@@ -7,6 +7,7 @@ import AdminSidebar from "@/components/AdminSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Users, Home, User2 } from "lucide-react";
 import { toast } from "sonner";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 interface DashboardStats {
   totalBookings: number;
@@ -32,13 +33,16 @@ interface RecentUser {
 }
 
 export default function AdminDashboard() {
+  const { session, isPending } = useAdminAuth();
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [recentBookings, setRecentBookings] = useState<RecentBooking[]>([]);
   const [recentUsers, setRecentUsers] = useState<RecentUser[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchDashboardData();
+    if (!isPending && session) {
+      fetchDashboardData();
+    }
   }, []);
 
   const fetchDashboardData = async () => {

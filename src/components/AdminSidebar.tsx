@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, Calendar, CreditCard, CheckSquare, UserCog, Shield } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { LayoutDashboard, Users, Calendar, CreditCard, CheckSquare, UserCog, Shield, LogOut } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 const navigation = [
   { name: "Overview", href: "/admin/dashboard", icon: LayoutDashboard },
@@ -15,6 +18,19 @@ const navigation = [
 
 export default function AdminSidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    try {
+      await authClient.signOut();
+      toast.success("Signed out successfully");
+      router.push("/admin/login");
+      router.refresh();
+    } catch (error) {
+      console.error("Sign out error:", error);
+      toast.error("Failed to sign out");
+    }
+  };
 
   return (
     <div className="w-64 bg-white border-r min-h-screen sticky top-20">
@@ -48,6 +64,17 @@ export default function AdminSidebar() {
             );
           })}
         </nav>
+
+        <div className="mt-8 pt-6 border-t">
+          <Button
+            onClick={handleSignOut}
+            variant="ghost"
+            className="w-full flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 hover:text-red-700"
+          >
+            <LogOut className="w-5 h-5" />
+            <span className="font-medium">Sign Out</span>
+          </Button>
+        </div>
       </div>
     </div>
   );
