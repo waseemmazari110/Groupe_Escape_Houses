@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Search, Filter, X, Eye, Edit2, Trash2, Calendar, DollarSign, Users, TrendingUp, Home, Download } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AdminSidebar from "@/components/AdminSidebar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -222,11 +223,14 @@ export default function AdminBookingsPage() {
     <div className="min-h-screen bg-[var(--color-bg-primary)]">
       <Header />
 
-      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8 mt-20">
-        {/* Page Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2" style={{ fontFamily: "var(--font-display)" }}>
-            Booking Management
+      <div className="flex mt-20">
+        <AdminSidebar />
+
+        <main className="flex-1 p-8">
+          {/* Page Header */}
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold mb-2" style={{ fontFamily: "var(--font-display)" }}>
+              Booking Management
           </h1>
           <p className="text-lg text-[var(--color-neutral-dark)]">
             Manage all your property bookings in one place
@@ -694,6 +698,8 @@ export default function AdminBookingsPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+        </main>
+      </div>
 
       <Footer />
     </div>
