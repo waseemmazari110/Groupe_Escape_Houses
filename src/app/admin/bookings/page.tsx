@@ -240,57 +240,57 @@ export default function AdminBookingsPage() {
           {/* Stats Cards */}
           {stats && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">Total Bookings</CardTitle>
-                <Calendar className="w-4 h-4 text-[var(--color-accent-sage)]" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{stats.totalBookings}</div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  {stats.upcomingBookings} upcoming
-                </p>
-              </CardContent>
-            </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between pb-2">
+                  <CardTitle className="text-sm font-medium">Total Bookings</CardTitle>
+                  <Calendar className="w-4 h-4 text-[var(--color-accent-sage)]" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stats.totalBookings}</div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {stats.upcomingBookings} upcoming
+                  </p>
+                </CardContent>
+              </Card>
 
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-                <DollarSign className="w-4 h-4 text-[var(--color-accent-gold)]" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">£{stats.totalRevenue.toLocaleString()}</div>
-                <p className="text-xs text-muted-foreground mt-1">All time earnings</p>
-              </CardContent>
-            </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between pb-2">
+                  <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+                  <DollarSign className="w-4 h-4 text-[var(--color-accent-gold)]" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">£{stats.totalRevenue.toLocaleString()}</div>
+                  <p className="text-xs text-muted-foreground mt-1">All time earnings</p>
+                </CardContent>
+              </Card>
 
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">Pending Bookings</CardTitle>
-                <Users className="w-4 h-4 text-[var(--color-accent-sage)]" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{stats.pendingBookings}</div>
-                <p className="text-xs text-muted-foreground mt-1">Awaiting confirmation</p>
-              </CardContent>
-            </Card>
+                <Card>
+                <CardHeader className="flex flex-row items-center justify-between pb-2">
+                  <CardTitle className="text-sm font-medium">Pending Bookings</CardTitle>
+                  <Users className="w-4 h-4 text-[var(--color-accent-sage)]" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stats.pendingBookings}</div>
+                  <p className="text-xs text-muted-foreground mt-1">Awaiting confirmation</p>
+                </CardContent>
+              </Card>
 
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">Confirmed Bookings</CardTitle>
-                <TrendingUp className="w-4 h-4 text-green-600" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{stats.confirmedBookings}</div>
-                <p className="text-xs text-muted-foreground mt-1">Ready to go</p>
-              </CardContent>
-            </Card>
-          </div>
+                <Card>
+                <CardHeader className="flex flex-row items-center justify-between pb-2">
+                  <CardTitle className="text-sm font-medium">Confirmed Bookings</CardTitle>
+                  <TrendingUp className="w-4 h-4 text-green-600" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stats.confirmedBookings}</div>
+                  <p className="text-xs text-muted-foreground mt-1">Ready to go</p>
+                </CardContent>
+              </Card>
+            </div>
           )}
 
           {/* Filters and Search */}
           <Card className="mb-6">
-          <CardContent className="pt-6">
+            <CardContent className="pt-6">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1 relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -350,25 +350,25 @@ export default function AdminBookingsPage() {
               </div>
             )}
           </CardContent>
-        </Card>
+          </Card>
 
           {/* Bookings Table */}
           <Card>
-          <CardContent className="p-0">
-            {loading ? (
-              <div className="flex items-center justify-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-accent-sage)]"></div>
-              </div>
-            ) : filteredBookings.length === 0 ? (
-              <div className="text-center py-12">
-                <Home className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-                <p className="text-gray-600 mb-2">No bookings found</p>
-                <p className="text-sm text-gray-500">Try adjusting your filters or search terms</p>
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-gray-50 border-b">
+            <CardContent className="p-0">
+              {loading ? (
+                <div className="flex items-center justify-center py-12">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-accent-sage)]"></div>
+                </div>
+              ) : filteredBookings.length === 0 ? (
+                <div className="text-center py-12">
+                  <Home className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+                  <p className="text-gray-600 mb-2">No bookings found</p>
+                  <p className="text-sm text-gray-500">Try adjusting your filters or search terms</p>
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead className="bg-gray-50 border-b">
                     <tr>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Guest
@@ -476,33 +476,33 @@ export default function AdminBookingsPage() {
                     ))}
                   </tbody>
                 </table>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+                </div>
+              )}
+            </CardContent>
+          </Card>
 
           {/* Popular Properties */}
           {stats && stats.popularProperties.length > 0 && (
             <Card className="mt-6">
-            <CardHeader>
-              <CardTitle>Popular Properties</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {stats.popularProperties.map((property, index) => (
-                  <div key={index} className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[var(--color-accent-sage)]/10 flex items-center justify-center text-sm font-semibold">
-                        {index + 1}
+              <CardHeader>
+                <CardTitle>Popular Properties</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {stats.popularProperties.map((property, index) => (
+                    <div key={index} className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-[var(--color-accent-sage)]/10 flex items-center justify-center text-sm font-semibold">
+                          {index + 1}
+                        </div>
+                        <span className="font-medium">{property.property}</span>
                       </div>
-                      <span className="font-medium">{property.property}</span>
+                      <Badge variant="secondary">{property.count} bookings</Badge>
                     </div>
-                    <Badge variant="secondary">{property.count} bookings</Badge>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           )}
         </main>
       </div>
