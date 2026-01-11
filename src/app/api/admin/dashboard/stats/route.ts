@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
-import { bookings, users } from "@/drizzle/schema";
-import { eq, and, count } from "drizzle-orm";
+import { bookings, user } from "@/db/schema";
+import { eq, count } from "drizzle-orm";
 
 export async function GET(request: NextRequest) {
   try {
@@ -10,21 +10,21 @@ export async function GET(request: NextRequest) {
     const totalBookings = totalBookingsResult[0]?.count || 0;
 
     // Get total users
-    const totalUsersResult = await db.select({ count: count() }).from(users);
+    const totalUsersResult = await db.select({ count: count() }).from(user);
     const totalUsers = totalUsersResult[0]?.count || 0;
 
     // Get property owners (users with role = 'owner')
     const propertyOwnersResult = await db
       .select({ count: count() })
-      .from(users)
-      .where(eq(users.role, "owner"));
+      .from(user)
+      .where(eq(user.role, "owner"));
     const propertyOwners = propertyOwnersResult[0]?.count || 0;
 
     // Get guests (users with role = 'guest')
     const guestsResult = await db
       .select({ count: count() })
-      .from(users)
-      .where(eq(users.role, "guest"));
+      .from(user)
+      .where(eq(user.role, "guest"));
     const guests = guestsResult[0]?.count || 0;
 
     return NextResponse.json({

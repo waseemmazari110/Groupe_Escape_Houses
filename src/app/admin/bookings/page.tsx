@@ -231,15 +231,15 @@ export default function AdminBookingsPage() {
           <div className="mb-8">
             <h1 className="text-4xl font-bold mb-2" style={{ fontFamily: "var(--font-display)" }}>
               Booking Management
-          </h1>
-          <p className="text-lg text-[var(--color-neutral-dark)]">
-            Manage all your property bookings in one place
-          </p>
-        </div>
+            </h1>
+            <p className="text-lg text-[var(--color-neutral-dark)]">
+              Manage all your property bookings in one place
+            </p>
+          </div>
 
-        {/* Stats Cards */}
-        {stats && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {/* Stats Cards */}
+          {stats && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium">Total Bookings</CardTitle>
@@ -286,10 +286,10 @@ export default function AdminBookingsPage() {
               </CardContent>
             </Card>
           </div>
-        )}
+          )}
 
-        {/* Filters and Search */}
-        <Card className="mb-6">
+          {/* Filters and Search */}
+          <Card className="mb-6">
           <CardContent className="pt-6">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1 relative">
@@ -352,8 +352,8 @@ export default function AdminBookingsPage() {
           </CardContent>
         </Card>
 
-        {/* Bookings Table */}
-        <Card>
+          {/* Bookings Table */}
+          <Card>
           <CardContent className="p-0">
             {loading ? (
               <div className="flex items-center justify-center py-12">
@@ -481,9 +481,9 @@ export default function AdminBookingsPage() {
           </CardContent>
         </Card>
 
-        {/* Popular Properties */}
-        {stats && stats.popularProperties.length > 0 && (
-          <Card className="mt-6">
+          {/* Popular Properties */}
+          {stats && stats.popularProperties.length > 0 && (
+            <Card className="mt-6">
             <CardHeader>
               <CardTitle>Popular Properties</CardTitle>
             </CardHeader>
@@ -503,8 +503,9 @@ export default function AdminBookingsPage() {
               </div>
             </CardContent>
           </Card>
-        )}
-      </main>
+          )}
+        </main>
+      </div>
 
       {/* View Details Dialog */}
       <Dialog open={isDetailsDialogOpen} onOpenChange={setIsDetailsDialogOpen}>
