@@ -1,7 +1,7 @@
 
 import crypto from "node:crypto";
 
-function verifyMd5(password, hash) {
+function verifyMd5(password: string, hash: string): boolean {
     if (hash.length === 32 && /^[0-9a-f]+$/.test(hash)) {
         const md5Hash = crypto.createHash("md5").update(password).digest("hex");
         return md5Hash === hash;
