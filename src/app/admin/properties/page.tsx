@@ -82,10 +82,22 @@ export default function AdminPropertiesPage() {
         `/properties?${params.toString()}`
       );
 
-      setProperties(data.properties);
-      setTotal(data.total);
+      // Handle both array response and properties object response
+      if (Array.isArray(data)) {
+        setProperties(data);
+        setTotal(data.length);
+      } else if (data && data.properties) {
+        setProperties(data.properties || []);
+        setTotal(data.total || 0);
+      } else {
+        setProperties([]);
+        setTotal(0);
+      }
     } catch (error) {
       console.error("Failed to fetch properties:", error);
+      setProperties([]);
+      setTotal(0);
+      toast.error("Failed to load properties");
     } finally {
       setLoading(false);
     }
@@ -233,7 +245,7 @@ export default function AdminPropertiesPage() {
             <div className="flex items-center justify-center h-64">
               <div className="text-gray-500">Loading properties...</div>
             </div>
-          ) : properties.length === 0 ? (
+          ) : !properties || properties.length === 0 ? (
             <div className="flex items-center justify-center h-64">
               <div className="text-center">
                 <p className="text-gray-500 mb-4">No properties found</p>
