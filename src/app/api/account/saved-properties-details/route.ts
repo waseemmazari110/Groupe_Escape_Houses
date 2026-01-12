@@ -47,7 +47,7 @@ export async function GET(req: NextRequest) {
       bedrooms: p.bedrooms,
       priceFrom: Math.round(p.priceFromMidweek / 3), // Estimate per night
       image: p.heroImage,
-      features: p.features.map((f: any) => f.featureName),
+      features: (p.features || []).map((f: any) => f.featureName),
       slug: p.slug,
     }));
 
