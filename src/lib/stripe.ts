@@ -12,5 +12,5 @@ if (!stripeKey) {
 console.log(`[Stripe] Using ${process.env.NODE_ENV === 'production' ? 'LIVE' : 'TEST'} mode`);
 
 export const stripe = new Stripe(stripeKey, {
-  apiVersion: '2024-12-18.acacia',
+  apiVersion: '2025-10-29.clover',
 });
