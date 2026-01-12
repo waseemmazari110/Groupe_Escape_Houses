@@ -15,6 +15,25 @@ const makeSignature = (password: string, secret: string) => {
 	return hmac.digest("hex");
 };
 
+// Validate environment variables
+if (!process.env.BETTER_AUTH_SECRET) {
+	console.error("BETTER_AUTH_SECRET is not set!");
+}
+
+const getBaseURL = () => {
+	if (process.env.NODE_ENV === "production") {
+		return process.env.BETTER_AUTH_URL_PRODUCTION 
+			|| (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
+			|| process.env.NEXT_PUBLIC_APP_URL_PRODUCTION
+			|| "https://groupe-escape-houses.vercel.app";
+	}
+	return process.env.BETTER_AUTH_URL 
+		|| process.env.NEXT_PUBLIC_BETTER_AUTH_URL 
+		|| "http://localhost:3000";
+};
+
+console.log("Auth baseURL:", getBaseURL());
+
 export const auth = betterAuth({
 	database: drizzleAdapter(db, {
 		provider: "sqlite",
@@ -26,9 +45,7 @@ export const auth = betterAuth({
 		}
 	}),
 	secret: process.env.BETTER_AUTH_SECRET,
-	baseURL: process.env.NODE_ENV === "production" 
-		? (process.env.BETTER_AUTH_URL_PRODUCTION || process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : process.env.NEXT_PUBLIC_APP_URL_PRODUCTION)
-		: (process.env.BETTER_AUTH_URL || process.env.NEXT_PUBLIC_BETTER_AUTH_URL),
+	baseURL: getBaseURL(),
 	trustedOrigins: [
 		"https://www.groupescapehouses.co.uk",
 		"https://groupescapehouses.co.uk",

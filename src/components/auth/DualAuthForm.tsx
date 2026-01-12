@@ -39,13 +39,18 @@ export function DualAuthForm({ onSuccess, initialTab }: { onSuccess?: () => void
     setIsLoading(true);
 
     try {
+        console.log("Attempting sign in for:", email);
+        
         const { data, error } = await authClient.signIn.email({
           email,
           password,
           rememberMe,
         });
 
+        console.log("Sign in response:", { data, error });
+
         if (error) {
+          console.error("Sign in error:", error);
           toast.error(error.message || "Invalid credentials");
           setIsLoading(false);
           return;
@@ -65,9 +70,10 @@ export function DualAuthForm({ onSuccess, initialTab }: { onSuccess?: () => void
         } else {
           router.push("/account/dashboard");
         }
-    } catch (err) {
-      console.error("Sign in error:", err);
-      toast.error("An error occurred during sign in");
+    } catch (err: any) {
+      console.error("Sign in exception:", err);
+      const errorMessage = err?.message || err?.toString() || "An error occurred during sign in";
+      toast.error(errorMessage);
       setIsLoading(false);
     }
   };

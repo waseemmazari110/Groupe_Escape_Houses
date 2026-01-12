@@ -41,6 +41,8 @@ function SignUpForm() {
     setLoading(true);
     
     try {
+      console.log("Starting sign up with:", { email: formData.email, name: formData.name, plan });
+      
       const { data, error } = await authClient.signUp.email({
         email: formData.email,
         password: formData.password,
@@ -54,9 +56,16 @@ function SignUpForm() {
         paymentStatus: "pending"
       } as any);
 
+      console.log("Sign up response:", { data, error });
+
       if (error) {
-        toast.error(error.message || "Something went wrong");
-      } else {
+        console.error("Sign up error:", error);
+        toast.error(error.message || "Failed to create account. Please try again.");
+        setLoading(false);
+        return;
+      }
+      
+      if (data) {
         toast.success("Account created successfully!");
         // Store the registration start event
         if (typeof window !== "undefined") {
@@ -64,9 +73,10 @@ function SignUpForm() {
         }
         router.push(`/choose-plan?plan=${plan}`);
       }
-    } catch (err) {
-      toast.error("An unexpected error occurred");
-      console.error(err);
+    } catch (err: any) {
+      console.error("Sign up exception:", err);
+      const errorMessage = err?.message || err?.toString() || "An unexpected error occurred";
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
