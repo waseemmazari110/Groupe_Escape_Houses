@@ -39,17 +39,20 @@ export async function GET(req: NextRequest) {
     });
 
     // Format for PropertyCard
-    const formattedProperties = propertyDetails.map(p => ({
-      id: p.id,
-      title: p.title,
-      location: p.location,
-      sleeps: p.sleepsMax,
-      bedrooms: p.bedrooms,
-      priceFrom: Math.round(p.priceFromMidweek / 3), // Estimate per night
-      image: p.heroImage,
-      features: Array.isArray(p.features) ? p.features.map((f: any) => f.featureName) : [],
-      slug: p.slug,
-    }));
+    const formattedProperties = propertyDetails.map(p => {
+      const featuresArray = p.features as any[] | undefined;
+      return {
+        id: p.id,
+        title: p.title,
+        location: p.location,
+        sleeps: p.sleepsMax,
+        bedrooms: p.bedrooms,
+        priceFrom: Math.round(p.priceFromMidweek / 3), // Estimate per night
+        image: p.heroImage,
+        features: Array.isArray(featuresArray) ? featuresArray.map((f: any) => f.featureName) : [],
+        slug: p.slug,
+      };
+    });
 
     return NextResponse.json({ properties: formattedProperties });
   } catch (error) {
