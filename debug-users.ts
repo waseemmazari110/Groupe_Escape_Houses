@@ -7,7 +7,7 @@ async function main() {
         const users = await db.select().from(user);
         console.log("Users in database:");
         users.forEach(u => {
-            console.log(`- ID: ${u.id}, Email: ${u.email}, Role: ${u.role}, Password Hash: ${u.password?.substring(0, 20)}...`);
+            console.log(`- ID: ${u.id}, Email: ${u.email}, Role: ${u.role}, Name: ${u.name}`);
         });
     } catch (error) {
         console.error("Error fetching users:", error);
