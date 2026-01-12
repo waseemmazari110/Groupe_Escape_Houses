@@ -61,10 +61,13 @@ function SignUpForm() {
       const { data, error } = await authClient.signUp.email(signUpData as any);
 
       console.log("Sign up response:", { data, error });
+      console.log("Full response for debugging:", JSON.stringify({ data, error }, null, 2));
 
       if (error) {
         console.error("Sign up error:", error);
-        toast.error(error.message || "Failed to create account. Please try again.");
+        const errorMsg = error?.message || error?.error?.message || "Failed to create account. Please try again.";
+        console.error("Error message:", errorMsg);
+        toast.error(errorMsg);
         setLoading(false);
         return;
       }

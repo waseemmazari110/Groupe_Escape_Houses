@@ -21,18 +21,31 @@ if (!process.env.BETTER_AUTH_SECRET) {
 }
 
 const getBaseURL = () => {
-	if (process.env.NODE_ENV === "production") {
-		return process.env.BETTER_AUTH_URL_PRODUCTION 
-			|| (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
+	const env = process.env.NODE_ENV;
+	const vercelUrl = process.env.VERCEL_URL;
+	
+	console.log("[AUTH CONFIG] NODE_ENV:", env);
+	console.log("[AUTH CONFIG] VERCEL_URL:", vercelUrl);
+	console.log("[AUTH CONFIG] BETTER_AUTH_URL_PRODUCTION:", process.env.BETTER_AUTH_URL_PRODUCTION);
+	
+	if (env === "production") {
+		const prodUrl = process.env.BETTER_AUTH_URL_PRODUCTION 
+			|| (vercelUrl ? `https://${vercelUrl}` : null)
 			|| process.env.NEXT_PUBLIC_APP_URL_PRODUCTION
 			|| "https://groupe-escape-houses.vercel.app";
+		console.log("[AUTH CONFIG] Using production URL:", prodUrl);
+		return prodUrl;
 	}
-	return process.env.BETTER_AUTH_URL 
+	
+	const devUrl = process.env.BETTER_AUTH_URL 
 		|| process.env.NEXT_PUBLIC_BETTER_AUTH_URL 
 		|| "http://localhost:3000";
+	console.log("[AUTH CONFIG] Using dev URL:", devUrl);
+	return devUrl;
 };
 
-console.log("Auth baseURL:", getBaseURL());
+const baseURL = getBaseURL();
+console.log("[AUTH CONFIG] Final baseURL:", baseURL);
 
 export const auth = betterAuth({
 	database: drizzleAdapter(db, {
@@ -45,7 +58,7 @@ export const auth = betterAuth({
 		}
 	}),
 	secret: process.env.BETTER_AUTH_SECRET,
-	baseURL: getBaseURL(),
+	baseURL: baseURL,
 	trustedOrigins: [
 		"https://www.groupescapehouses.co.uk",
 		"https://groupescapehouses.co.uk",
