@@ -43,18 +43,24 @@ function SignUpForm() {
     try {
       console.log("Starting sign up with:", { email: formData.email, name: formData.name, plan });
       
-      const { data, error } = await authClient.signUp.email({
+      const signUpData = {
         email: formData.email,
         password: formData.password,
         name: formData.name,
         callbackURL: "/choose-plan",
-        role: "owner",
-        phoneNumber: formData.phone,
-        propertyName: formData.propertyName,
-        propertyWebsite: formData.propertyWebsite,
-        planId: plan,
-        paymentStatus: "pending"
-      } as any);
+        data: {
+          role: "owner",
+          phoneNumber: formData.phone || null,
+          propertyName: formData.propertyName || null,
+          propertyWebsite: formData.propertyWebsite || null,
+          planId: plan,
+          paymentStatus: "pending"
+        }
+      };
+      
+      console.log("Sign up payload:", signUpData);
+      
+      const { data, error } = await authClient.signUp.email(signUpData as any);
 
       console.log("Sign up response:", { data, error });
 
