@@ -19,7 +19,7 @@ async function main() {
       await client.execute(sql);
       console.log(`Executed: ${sql}`);
     } catch (e) {
-      console.error(`Failed: ${sql}`, e.message);
+      console.error(`Failed: ${sql}`, (e as Error).message);
     }
   }
   client.close();
