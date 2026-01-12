@@ -48,14 +48,12 @@ function SignUpForm() {
         password: formData.password,
         name: formData.name,
         callbackURL: "/choose-plan",
-        data: {
-          role: "owner",
-          phoneNumber: formData.phone || null,
-          propertyName: formData.propertyName || null,
-          propertyWebsite: formData.propertyWebsite || null,
-          planId: plan,
-          paymentStatus: "pending"
-        }
+        role: "owner",
+        phoneNumber: formData.phone || "",
+        propertyName: formData.propertyName || "",
+        propertyWebsite: formData.propertyWebsite || "",
+        planId: plan,
+        paymentStatus: "pending"
       };
       
       console.log("Sign up payload:", signUpData);
