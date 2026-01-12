@@ -48,6 +48,7 @@ export async function GET(request: NextRequest) {
     const id = searchParams.get('id');
     const ownerId = searchParams.get('ownerId');
     const includeUnpublished = searchParams.get('includeUnpublished') === 'true';
+    const statusParam = searchParams.get('status');
 
     // Single property by ID
     if (id) {
@@ -126,6 +127,11 @@ export async function GET(request: NextRequest) {
     if (isPublished !== null && isPublished !== undefined) {
       const isPublishedBool = isPublished === 'true';
       conditions.push(eq(properties.isPublished, isPublishedBool));
+    }
+
+    // Status filter for approvals page (pending, approved, rejected, all)
+    if (statusParam && statusParam !== 'all') {
+      conditions.push(eq(properties.status, statusParam));
     }
 
     // Apply conditions

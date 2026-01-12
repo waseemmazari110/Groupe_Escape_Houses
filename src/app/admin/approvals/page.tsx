@@ -14,11 +14,10 @@ interface Property {
   id: number;
   title: string;
   location: string;
-  ownerName: string;
-  ownerEmail: string;
-  images: string[];
-  submittedDate: string;
+  ownerId?: string;
+  heroImage?: string;
   status: string;
+  createdAt: string;
 }
 
 interface ApprovalStats {
@@ -45,7 +44,8 @@ export default function ApprovalsPage() {
       const response = await fetch(`/api/properties?status=${statusFilter}`);
       if (response.ok) {
         const data = await response.json();
-        setProperties(data.properties || []);
+        // API returns array directly, not wrapped in properties object
+        setProperties(Array.isArray(data) ? data : []);
       }
     } catch (error) {
       console.error("Error fetching properties:", error);
@@ -122,8 +122,7 @@ export default function ApprovalsPage() {
   const filteredProperties = properties.filter((property) => {
     const matchesSearch =
       property.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      property.location?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      property.ownerName?.toLowerCase().includes(searchTerm.toLowerCase());
+      property.location?.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesSearch;
   });
 
@@ -238,9 +237,9 @@ export default function ApprovalsPage() {
               {filteredProperties.map((property) => (
                 <Card key={property.id} className="overflow-hidden">
                   <div className="relative h-48">
-                    {property.images && property.images.length > 0 ? (
+                    {property.heroImage ? (
                       <Image
-                        src={property.images[0]}
+                        src={property.heroImage}
                         alt={property.title}
                         fill
                         className="object-cover"
@@ -273,12 +272,12 @@ export default function ApprovalsPage() {
                     
                     <div className="bg-purple-50 rounded p-3 mb-3">
                       <button className="text-sm text-purple-700 font-medium flex items-center gap-1 w-full">
-                        📧 Owner Details
+                        📧 Owner: {property.ownerId || 'N/A'}
                       </button>
                     </div>
 
                     <div className="text-xs text-gray-500 mb-4">
-                      📅 Submitted {new Date(property.submittedDate).toLocaleDateString("en-GB")}
+                      📅 Submitted {new Date(property.createdAt).toLocaleDateString("en-GB")}
                     </div>
 
                     <div className="flex gap-2">

@@ -67,7 +67,7 @@ export default function AdminUsersPage() {
     if (!confirm("Are you sure you want to delete this user?")) return;
 
     try {
-      const response = await fetch(`/api/users/${userId}`, {
+      const response = await fetch(`/api/users?id=${userId}`, {
         method: "DELETE",
       });
 
