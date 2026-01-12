@@ -2,6 +2,8 @@
 import { autumnHandler } from "autumn-js/next";
 import { auth } from "@/lib/auth";
 
+export const runtime = "nodejs";
+
 const handler = autumnHandler({
   identify: async (request) => {
     try {
