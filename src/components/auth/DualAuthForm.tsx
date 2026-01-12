@@ -58,7 +58,7 @@ export function DualAuthForm({ onSuccess, initialTab }: { onSuccess?: () => void
         }
 
         // Use the user data from the response for immediate redirection
-        const user = data?.user;
+        const user = data?.user as any;
         
         if (user?.role === "owner") {
           router.push("/owner-dashboard");
