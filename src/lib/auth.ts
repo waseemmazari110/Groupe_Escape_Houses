@@ -26,15 +26,20 @@ export const auth = betterAuth({
 		}
 	}),
 	secret: process.env.BETTER_AUTH_SECRET,
-	baseURL: process.env.BETTER_AUTH_URL || process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
+	baseURL: process.env.NODE_ENV === "production" 
+		? (process.env.BETTER_AUTH_URL_PRODUCTION || process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : process.env.NEXT_PUBLIC_APP_URL_PRODUCTION)
+		: (process.env.BETTER_AUTH_URL || process.env.NEXT_PUBLIC_BETTER_AUTH_URL),
 	trustedOrigins: [
 		"https://www.groupescapehouses.co.uk",
 		"https://groupescapehouses.co.uk",
+		"https://groupe-escape-houses.vercel.app",
+		"https://escape-houses-1-dan.vercel.app",
 		"http://localhost:3000",
 		"http://127.0.0.1:3000",
 		"http://192.168.1.232:3000",
 		"http://192.168.0.171:3000",
 		"http://192.168.1.80:3000",
+		...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
 		...(process.env.BETTER_AUTH_TRUSTED_ORIGINS?.split(",").map(o => o.trim()) || [])
 	],
 	advanced: {
