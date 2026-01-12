@@ -5,7 +5,7 @@ import AdminSidebar from "@/components/AdminSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Home, Search, Eye, XCircle } from "lucide-react";
+import { Home, Search, Eye, XCircle, RefreshCw } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -41,7 +41,13 @@ export default function ApprovalsPage() {
   const fetchProperties = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/properties?status=${statusFilter}`);
+      const timestamp = new Date().getTime();
+      const response = await fetch(`/api/properties?status=${statusFilter}&t=${timestamp}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+      });
       if (response.ok) {
         const data = await response.json();
         // API returns array directly, not wrapped in properties object
@@ -57,7 +63,13 @@ export default function ApprovalsPage() {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch("/api/properties/stats");
+      const timestamp = new Date().getTime();
+      const response = await fetch(`/api/properties/stats?t=${timestamp}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+      });
       if (response.ok) {
         const data = await response.json();
         setStats(data);
@@ -133,11 +145,26 @@ export default function ApprovalsPage() {
 
         <main className="flex-1 p-8">
           <div className="mb-8">
-            <div className="flex items-center gap-2 mb-2">
-              <Home className="w-8 h-8 text-[var(--color-accent-sage)]" />
-              <h1 className="text-4xl font-bold" style={{ fontFamily: "var(--font-display)" }}>
-                Property Approvals
-              </h1>
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <Home className="w-8 h-8 text-[var(--color-accent-sage)]" />
+                <h1 className="text-4xl font-bold" style={{ fontFamily: "var(--font-display)" }}>
+                  Property Approvals
+                </h1>
+              </div>
+              <Button
+                onClick={() => {
+                  fetchProperties();
+                  fetchStats();
+                }}
+                disabled={loading}
+                variant="outline"
+                size="sm"
+                className="gap-2"
+              >
+                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                Refresh
+              </Button>
             </div>
             <p className="text-[var(--color-neutral-dark)]">Review and approve property listings from owners</p>
           </div>

@@ -1,68 +1,54 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
-import { user } from "@/db/schema";
-import { sql } from "drizzle-orm";
+import { orchardsPayments, bookings } from "@/db/schema";
+import { eq, desc } from "drizzle-orm";
 
-// Get all transactions (using user payment data as proxy)
+// Get all transactions from orchards_payments table
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const status = searchParams.get('status');
+    const statusParam = searchParams.get('status');
 
-    let query;
-    if (status && status !== 'all') {
-      query = db
-        .select({
-          id: user.id,
-          userName: user.name,
-          email: user.email,
-          plan: user.planId,
-          amount: sql<number>`CASE 
-            WHEN ${user.planId} = 'bronze' THEN 450
-            WHEN ${user.planId} = 'silver' THEN 650
-            WHEN ${user.planId} = 'gold' THEN 850
-            ELSE 450
-          END`,
-          commission: sql<number>`CASE 
-            WHEN ${user.planId} = 'bronze' THEN 45
-            WHEN ${user.planId} = 'silver' THEN 65
-            WHEN ${user.planId} = 'gold' THEN 85
-            ELSE 45
-          END`,
-          status: user.paymentStatus,
-          date: user.createdAt,
-          property: user.propertyName,
-        })
-        .from(user)
-        .where(sql`${user.role} = 'owner' AND ${user.paymentStatus} = ${status}`);
-    } else {
-      query = db
-        .select({
-          id: user.id,
-          userName: user.name,
-          email: user.email,
-          plan: user.planId,
-          amount: sql<number>`CASE 
-            WHEN ${user.planId} = 'bronze' THEN 450
-            WHEN ${user.planId} = 'silver' THEN 650
-            WHEN ${user.planId} = 'gold' THEN 850
-            ELSE 450
-          END`,
-          commission: sql<number>`CASE 
-            WHEN ${user.planId} = 'bronze' THEN 45
-            WHEN ${user.planId} = 'silver' THEN 65
-            WHEN ${user.planId} = 'gold' THEN 85
-            ELSE 45
-          END`,
-          status: user.paymentStatus,
-          date: user.createdAt,
-          property: user.propertyName,
-        })
-        .from(user)
-        .where(sql`${user.role} = 'owner'`);
+    // Query payments with booking details
+    let query = db
+      .select({
+        id: orchardsPayments.id,
+        transactionId: orchardsPayments.orchardsTransactionId,
+        amount: orchardsPayments.amount,
+        status: orchardsPayments.status,
+        paymentType: orchardsPayments.paymentType,
+        currency: orchardsPayments.currency,
+        date: orchardsPayments.createdAt,
+        paidAt: orchardsPayments.paidAt,
+        // Booking details
+        memberName: bookings.guestName,
+        memberEmail: bookings.guestEmail,
+        property: bookings.propertyName,
+      })
+      .from(orchardsPayments)
+      .leftJoin(bookings, eq(orchardsPayments.bookingId, bookings.id))
+      .orderBy(desc(orchardsPayments.createdAt));
+
+    let results = await query;
+
+    // Filter by status if provided
+    if (statusParam && statusParam !== 'all') {
+      results = results.filter(t => t.status?.toLowerCase() === statusParam.toLowerCase());
     }
 
-    const transactions = await query;
+    // Calculate commission (10% of amount)
+    const transactions = results.map(t => ({
+      id: t.id,
+      transactionId: t.transactionId || `TXN-${t.id}`,
+      memberName: t.memberName || 'Guest',
+      memberEmail: t.memberEmail || 'N/A',
+      amount: t.amount || 0,
+      commission: (t.amount || 0) * 0.10, // 10% commission
+      plan: t.paymentType || 'N/A',
+      status: t.status || 'pending',
+      date: t.date || new Date().toISOString(),
+      property: t.property || 'N/A',
+    }));
 
     return NextResponse.json(
       {

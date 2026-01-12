@@ -1,66 +1,47 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
-import { user } from "@/db/schema";
-import { count, sql } from "drizzle-orm";
+import { orchardsPayments } from "@/db/schema";
+import { count, sum, eq, or, sql } from "drizzle-orm";
 
 export async function GET(request: NextRequest) {
   try {
-    // Get successful payments
-    const successfulResult = await db
-      .select({ count: count() })
-      .from(user)
-      .where(sql`${user.role} = 'owner' AND ${user.paymentStatus} IN ('paid', 'active')`);
-    const successful = successfulResult[0]?.count || 0;
-
-    // Get pending payments
-    const pendingResult = await db
-      .select({ count: count() })
-      .from(user)
-      .where(sql`${user.role} = 'owner' AND ${user.paymentStatus} = 'pending'`);
-    const pending = pendingResult[0]?.count || 0;
-
-    // Get failed payments
-    const failedResult = await db
-      .select({ count: count() })
-      .from(user)
-      .where(sql`${user.role} = 'owner' AND ${user.paymentStatus} = 'failed'`);
-    const failed = failedResult[0]?.count || 0;
-
-    // Calculate revenue with 10% commission
-    const planPrices: Record<string, number> = {
-      'bronze': 450,
-      'silver': 650,
-      'gold': 850,
-      'basic': 450,
-      'premium': 650,
-      'professional': 850,
-    };
-
-    const revenueByPlan = await db
+    // Get all payments
+    const allPayments = await db
       .select({
-        plan: user.planId,
-        count: count()
+        amount: orchardsPayments.amount,
+        status: orchardsPayments.status,
       })
-      .from(user)
-      .where(sql`${user.role} = 'owner' AND ${user.paymentStatus} IN ('paid', 'active')`)
-      .groupBy(user.planId);
+      .from(orchardsPayments);
 
+    // Calculate totals and counts
     let totalRevenue = 0;
-    let totalCommission = 0;
-    revenueByPlan.forEach(item => {
-      if (item.plan) {
-        const price = planPrices[item.plan] || 450;
-        const revenue = (item.count as number) * price;
-        totalRevenue += revenue;
-        totalCommission += revenue * 0.1; // 10% commission
+    let successful = 0;
+    let pending = 0;
+    let failed = 0;
+
+    allPayments.forEach(payment => {
+      const status = (payment.status || '').toLowerCase();
+      const amount = payment.amount || 0;
+
+      if (status === 'succeeded' || status === 'paid' || status === 'completed') {
+        totalRevenue += amount;
+        successful++;
+      } else if (status === 'pending' || status === 'processing') {
+        pending++;
+      } else if (status === 'failed' || status === 'cancelled' || status === 'refunded') {
+        failed++;
       }
     });
+
+    // Calculate 10% commission
+    const totalCommission = totalRevenue * 0.10;
+    const netRevenue = totalRevenue - totalCommission;
 
     return NextResponse.json(
       {
         totalRevenue,
         totalCommission,
-        netRevenue: totalRevenue - totalCommission,
+        netRevenue,
         successful,
         pending,
         failed,
@@ -78,6 +59,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       { error: "Internal server error: " + (error as Error).message },
       { status: 500 }
+    );
+  }
+}
     );
   }
 }
