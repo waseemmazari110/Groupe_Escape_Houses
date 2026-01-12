@@ -8,9 +8,16 @@ const handler = toNextJsHandler(auth);
 
 export async function POST(request: NextRequest) {
   try {
-    return await handler.POST(request);
+    const url = new URL(request.url);
+    console.log("Auth POST request:", url.pathname, url.search);
+    
+    const result = await handler.POST(request);
+    console.log("Auth POST response status:", result.status);
+    
+    return result;
   } catch (error: any) {
     console.error("Auth API POST error:", error);
+    console.error("Error stack:", error.stack);
     return NextResponse.json(
       { error: error?.message || "Authentication failed" },
       { status: 500 }
@@ -20,9 +27,16 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    return await handler.GET(request);
+    const url = new URL(request.url);
+    console.log("Auth GET request:", url.pathname, url.search);
+    
+    const result = await handler.GET(request);
+    console.log("Auth GET response status:", result.status);
+    
+    return result;
   } catch (error: any) {
     console.error("Auth API GET error:", error);
+    console.error("Error stack:", error.stack);
     return NextResponse.json(
       { error: error?.message || "Authentication failed" },
       { status: 500 }

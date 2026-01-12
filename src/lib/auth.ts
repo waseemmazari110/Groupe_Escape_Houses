@@ -71,7 +71,10 @@ export const auth = betterAuth({
 		user: {
 			create: {
 				after: async (user) => {
-					await sendWelcomeEmail(user.email, user.name);
+					// Send welcome email asynchronously without blocking user creation
+					sendWelcomeEmail(user.email, user.name).catch(err => {
+						console.error("Failed to send welcome email:", err);
+					});
 				}
 			}
 		}
