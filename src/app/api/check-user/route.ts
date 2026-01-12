@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db";
-import { user } from "@/db/schema";
+import { user, account } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export async function POST(req: Request) {
@@ -16,6 +16,13 @@ export async function POST(req: Request) {
       });
     }
 
+    // Check if user has password in account table
+    const userAccount = await db
+      .select()
+      .from(account)
+      .where(eq(account.userId, existingUser[0].id))
+      .limit(1);
+
     return NextResponse.json({ 
       found: true,
       user: {
@@ -23,7 +30,7 @@ export async function POST(req: Request) {
         email: existingUser[0].email,
         name: existingUser[0].name,
         role: existingUser[0].role,
-        hasPassword: existingUser[0].password ? "Yes (hashed)" : "No"
+        hasPassword: userAccount.length > 0 && userAccount[0].password ? "Yes (hashed)" : "No"
       }
     });
     

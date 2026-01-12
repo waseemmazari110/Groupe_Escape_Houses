@@ -304,3 +304,21 @@ export const enquiries = sqliteTable('enquiries', {
   status: text('status').notNull().default('sent'),
   createdAt: text('created_at').notNull(),
 });
+
+// Orchards Payments table
+export const orchardsPayments = sqliteTable('orchards_payments', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  bookingId: integer('booking_id').notNull().references(() => bookings.id, { onDelete: 'cascade' }),
+  orchardsTransactionId: text('orchards_transaction_id'),
+  orchardsPaymentUrl: text('orchards_payment_url'),
+  paymentType: text('payment_type').notNull(),
+  amount: real('amount').notNull(),
+  currency: text('currency').notNull().default('GBP'),
+  status: text('status').notNull().default('pending'),
+  paidAt: text('paid_at'),
+  refundedAt: text('refunded_at'),
+  failureReason: text('failure_reason'),
+  metadata: text('metadata'),
+  createdAt: text('created_at').notNull(),
+  updatedAt: text('updated_at').notNull(),
+});
