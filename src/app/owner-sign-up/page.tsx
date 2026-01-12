@@ -46,15 +46,13 @@ function SignUpForm() {
         password: formData.password,
         name: formData.name,
         callbackURL: "/choose-plan",
-        additionalFields: {
-          role: "owner",
-          phoneNumber: formData.phone,
-          propertyName: formData.propertyName,
-          propertyWebsite: formData.propertyWebsite,
-          planId: plan,
-          paymentStatus: "pending"
-        }
-      });
+        role: "owner",
+        phoneNumber: formData.phone,
+        propertyName: formData.propertyName,
+        propertyWebsite: formData.propertyWebsite,
+        planId: plan,
+        paymentStatus: "pending"
+      } as any);
 
       if (error) {
         toast.error(error.message || "Something went wrong");
