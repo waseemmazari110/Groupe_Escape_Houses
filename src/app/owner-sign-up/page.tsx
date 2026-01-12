@@ -65,7 +65,7 @@ function SignUpForm() {
 
       if (error) {
         console.error("Sign up error:", error);
-        const errorMsg = error?.message || error?.error?.message || "Failed to create account. Please try again.";
+        const errorMsg = error?.message || "Failed to create account. Please try again.";
         console.error("Error message:", errorMsg);
         toast.error(errorMsg);
         setLoading(false);
