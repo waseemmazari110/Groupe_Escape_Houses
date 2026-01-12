@@ -1,11 +1,13 @@
 /**
  * GEH_API - Global API Client for Group Escape Houses
- * Base URL: https://api.groupescapehouses.com/v1
+ * Base URL: /api (Next.js API routes) for development, can be configured for production
  * Auth: Bearer token from localStorage
  * Features: Auto 401 redirect, JSON-only, helpers for all HTTP methods
  */
 
-const BASE_URL = "https://api.groupescapehouses.com/v1";
+const BASE_URL = typeof window !== "undefined" 
+  ? "/api" 
+  : process.env.NEXT_PUBLIC_API_URL || "/api";
 
 interface RequestOptions {
   method?: "GET" | "POST" | "PUT" | "DELETE";

@@ -203,17 +203,40 @@ export function PropertyMultiStepForm({ propertyId, initialData }: PropertyMulti
   const handleSaveDraft = async () => {
     setIsLoading(true);
     try {
+      // Transform form data to match API expectations
+      const apiData = {
+        title: formData.title || "Untitled Property",
+        slug: formData.slug || formData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || `property-${Date.now()}`,
+        location: `${formData.town || 'Unknown'}, ${formData.county || 'Unknown'}`,
+        region: formData.county || "Unknown",
+        sleepsMin: Math.floor(formData.max_guests * 0.75) || 1,
+        sleepsMax: formData.max_guests || 1,
+        bedrooms: formData.bedrooms || 1,
+        bathrooms: formData.bathrooms || 1,
+        priceFromMidweek: formData.base_price || 100,
+        priceFromWeekend: formData.weekend_price || formData.base_price * 1.2 || 120,
+        description: formData.description || "Description pending",
+        houseRules: formData.house_rules || null,
+        checkInOut: `Check-in: ${formData.check_in_time}, Check-out: ${formData.check_out_time}`,
+        heroImage: formData.images[0] || 'https://placehold.co/1200x800',
+        heroVideo: formData.hero_video || null,
+        featured: 0,
+        isPublished: 0,
+        status: "draft",
+      };
+
       if (propertyId) {
         // Update existing property
-        await GEH_API.put(`/properties/${propertyId}`, { ...formData, status: "draft" });
+        await GEH_API.put(`/properties/${propertyId}`, apiData);
         toast.success("Property draft saved successfully");
       } else {
         // Create new property as draft
-        const response = await GEH_API.post("/properties", { ...formData, status: "draft" }) as any;
+        const response = await GEH_API.post("/properties", apiData) as any;
         toast.success("Property draft created successfully");
         router.push(`/admin/properties/${response.id}/edit`);
       }
     } catch (error: any) {
+      console.error("Save draft error:", error);
       toast.error(error.message || "Failed to save draft");
     } finally {
       setIsLoading(false);
@@ -242,18 +265,41 @@ export function PropertyMultiStepForm({ propertyId, initialData }: PropertyMulti
 
     setIsLoading(true);
     try {
+      // Transform form data to match API expectations
+      const apiData = {
+        title: formData.title,
+        slug: formData.slug || formData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''),
+        location: `${formData.town}, ${formData.county}`,
+        region: formData.county,
+        sleepsMin: Math.floor(formData.max_guests * 0.75), // Estimate min capacity
+        sleepsMax: formData.max_guests,
+        bedrooms: formData.bedrooms,
+        bathrooms: formData.bathrooms,
+        priceFromMidweek: formData.base_price,
+        priceFromWeekend: formData.weekend_price || formData.base_price * 1.2,
+        description: formData.description,
+        houseRules: formData.house_rules || null,
+        checkInOut: `Check-in: ${formData.check_in_time}, Check-out: ${formData.check_out_time}`,
+        heroImage: formData.images[0] || 'https://placehold.co/1200x800',
+        heroVideo: formData.hero_video || null,
+        featured: 0,
+        isPublished: 1,
+        status: "active",
+      };
+
       if (propertyId) {
         // Update existing property
-        await GEH_API.put(`/properties/${propertyId}`, { ...formData, status: "active" });
+        await GEH_API.put(`/properties/${propertyId}`, apiData);
         toast.success("Property published successfully");
         router.push("/admin/properties");
       } else {
         // Create new property
-        await GEH_API.post("/properties", { ...formData, status: "active" });
+        await GEH_API.post("/properties", apiData);
         toast.success("Property published successfully");
         router.push("/admin/properties");
       }
     } catch (error: any) {
+      console.error("Publish error:", error);
       toast.error(error.message || "Failed to publish property");
     } finally {
       setIsLoading(false);
