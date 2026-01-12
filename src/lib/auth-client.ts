@@ -7,7 +7,10 @@ export const authClient = createAuthClient({
   baseURL: typeof window !== 'undefined' 
     ? window.location.origin 
     : (process.env.NODE_ENV === "production" 
-      ? (process.env.BETTER_AUTH_URL_PRODUCTION || process.env.NEXT_PUBLIC_APP_URL_PRODUCTION || `https://${process.env.VERCEL_URL}`)
+      ? (process.env.BETTER_AUTH_URL_PRODUCTION 
+         || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
+         || process.env.NEXT_PUBLIC_APP_URL_PRODUCTION
+         || 'https://groupe-escape-houses.vercel.app')
       : (process.env.BETTER_AUTH_URL || process.env.NEXT_PUBLIC_BETTER_AUTH_URL || 'http://localhost:3000')),
   plugins: [
     inferAdditionalFields<typeof auth>()
