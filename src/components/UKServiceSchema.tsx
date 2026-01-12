@@ -1,14 +1,14 @@
 interface UKServiceSchemaProps {
-  type: "home" | "breadcrumb" | "itemList" | "faq" | "default" | "property" | "article" | "organization" | "website";
+  type?: "home" | "breadcrumb" | "itemList" | "faq" | "default" | "property" | "article" | "organization" | "website";
   data?: any;
   includeSiteWide?: boolean;
 }
 
-export default function UKServiceSchema({ type, data, includeSiteWide = false }: UKServiceSchemaProps) {
+export default function UKServiceSchema({ type = "default", data, includeSiteWide = false }: UKServiceSchemaProps) {
   return <SchemaRenderer type={type} data={data} includeSiteWide={includeSiteWide} />;
 }
 
-export function SchemaRenderer({ type, data, includeSiteWide = false }: UKServiceSchemaProps) {
+export function SchemaRenderer({ type = "default", data, includeSiteWide = false }: UKServiceSchemaProps) {
   const baseUrl = "https://www.groupescapehouses.co.uk";
   const siteName = "Group Escape Houses";
   const sameAs = [
