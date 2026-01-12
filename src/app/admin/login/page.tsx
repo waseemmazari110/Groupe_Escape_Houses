@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import AdminLayout from "@/components/AdminLayout";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,7 @@ import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { Eye, EyeOff, Loader2, Shield, Lock } from "lucide-react";
 
-export default function AdminLoginPage() {
+function AdminLoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackURL = searchParams.get("callbackURL") || "/admin/dashboard";
@@ -154,5 +154,38 @@ export default function AdminLoginPage() {
         </div>
       </div>
     </AdminLayout>
+  );
+}
+
+export default function AdminLoginPage() {
+  return (
+    <Suspense fallback={
+      <AdminLayout>
+        <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50">
+          <div className="w-full max-w-md">
+            <Card className="border-2 border-emerald-100 shadow-2xl">
+              <CardHeader className="space-y-4 text-center bg-gradient-to-r from-emerald-50 to-teal-50 border-b-2 border-emerald-100">
+                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center shadow-lg">
+                  <Lock className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-3xl font-bold text-slate-800">
+                  Admin Login
+                </CardTitle>
+                <CardDescription className="text-slate-600 font-medium">
+                  Loading...
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-8">
+                <div className="flex items-center justify-center py-12">
+                  <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </AdminLayout>
+    }>
+      <AdminLoginForm />
+    </Suspense>
   );
 }
