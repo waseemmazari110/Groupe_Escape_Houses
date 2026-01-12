@@ -1,27 +1,51 @@
 import { NextRequest, NextResponse } from "next/server";
+import { db } from "@/db";
+import { user } from "@/db/schema";
+import { eq, like, or, and } from "drizzle-orm";
 
-// Mock data for memberships - replace with actual database queries
 export async function GET(request: NextRequest) {
   try {
-    // This is mock data - you'll need to implement actual database queries
-    // based on your schema for membership/subscription tracking
-    const members = [
-      {
-        id: 1,
-        name: "test",
-        email: "danharley2008@yahoo.co.uk",
-        plan: "No Plan",
-        status: "inactive",
-        amount: "GBP 0.00",
-        signupDate: "10/01/2026, 21:52",
-        nextBilling: "-",
-        payment: "Failed",
-      },
+    const { searchParams } = new URL(request.url);
+    const planFilter = searchParams.get('plan');
+    const paymentFilter = searchParams.get('payment');
+    const search = searchParams.get('search');
+
+    const conditions: any[] = [
+      eq(user.role, "owner")
     ];
 
-    return NextResponse.json({
-      members,
-    });
+    if (planFilter && planFilter !== 'all') {
+      conditions.push(eq(user.planId, planFilter));
+    }
+
+    if (paymentFilter && paymentFilter !== 'all') {
+      conditions.push(eq(user.paymentStatus, paymentFilter));
+    }
+
+    if (search) {
+      conditions.push(
+        or(
+          like(user.name, `%${search}%`),
+          like(user.email, `%${search}%`),
+          like(user.propertyName, `%${search}%`)
+        )
+      );
+    }
+
+    const memberships = await db
+      .select({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        propertyName: user.propertyName,
+        planId: user.planId,
+        paymentStatus: user.paymentStatus,
+        createdAt: user.createdAt,
+      })
+      .from(user)
+      .where(and(...conditions));
+
+    return NextResponse.json({ memberships });
   } catch (error) {
     console.error("GET memberships error:", error);
     return NextResponse.json(

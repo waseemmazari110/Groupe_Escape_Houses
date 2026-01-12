@@ -19,7 +19,7 @@ export async function POST(
     await db
       .update(properties)
       .set({
-        isPublished: 0,
+        isPublished: false,
       })
       .where(eq(properties.id, propertyId));
 

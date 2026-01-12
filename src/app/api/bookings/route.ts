@@ -110,7 +110,17 @@ export async function GET(request: NextRequest) {
     // Apply pagination
     const results = await query.limit(limit).offset(offset);
 
-    return NextResponse.json(results, { status: 200 });
+    return NextResponse.json(
+      results,
+      {
+        status: 200,
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+        },
+      }
+    );
   } catch (error) {
     console.error('GET error:', error);
     return NextResponse.json(

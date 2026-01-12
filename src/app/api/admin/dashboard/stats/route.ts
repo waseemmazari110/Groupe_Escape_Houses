@@ -27,12 +27,21 @@ export async function GET(request: NextRequest) {
       .where(eq(user.role, "guest"));
     const guests = guestsResult[0]?.count || 0;
 
-    return NextResponse.json({
-      totalBookings,
-      totalUsers,
-      propertyOwners,
-      guests,
-    });
+    return NextResponse.json(
+      {
+        totalBookings,
+        totalUsers,
+        propertyOwners,
+        guests,
+      },
+      {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+        },
+      }
+    );
   } catch (error) {
     console.error("GET dashboard stats error:", error);
     return NextResponse.json(

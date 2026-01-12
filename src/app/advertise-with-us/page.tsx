@@ -275,7 +275,7 @@ export default function AdvertiseWithUs() {
                   <div className="mb-4">
                     <div className="flex items-baseline gap-2 justify-center mb-1">
                       <span className="text-4xl font-bold text-[var(--color-text-primary)]" style={{ fontFamily: "var(--font-display)" }}>
-                        £99.99
+                        £450
                       </span>
                       <span className="text-[var(--color-neutral-dark)] font-medium">+ VAT</span>
                     </div>
@@ -347,7 +347,7 @@ export default function AdvertiseWithUs() {
                     <div className="mb-4">
                       <div className="flex items-baseline gap-2 justify-center mb-1">
                         <span className="text-4xl font-bold text-[var(--color-text-primary)]" style={{ fontFamily: "var(--font-display)" }}>
-                          £149.99
+                          £650
                         </span>
                         <span className="text-[var(--color-neutral-dark)] font-medium">+ VAT</span>
                       </div>
@@ -413,7 +413,7 @@ export default function AdvertiseWithUs() {
                     <div className="mb-4">
                       <div className="flex items-baseline gap-2 justify-center mb-1">
                         <span className="text-4xl font-bold text-[var(--color-text-primary)]" style={{ fontFamily: "var(--font-display)" }}>
-                          £199.99
+                          £850
                         </span>
                         <span className="text-[var(--color-neutral-dark)] font-medium">+ VAT</span>
                       </div>

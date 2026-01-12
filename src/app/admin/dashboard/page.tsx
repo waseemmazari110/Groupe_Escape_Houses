@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import AdminSidebar from "@/components/AdminSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, Users, Home, User2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Calendar, Users, Home, User2, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 
@@ -43,28 +42,40 @@ export default function AdminDashboard() {
     if (!isPending && session) {
       fetchDashboardData();
     }
-  }, []);
+  }, [isPending, session]);
 
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
 
+      // Add timestamp to prevent caching
+      const timestamp = new Date().getTime();
+
       // Fetch dashboard stats
-      const statsResponse = await fetch("/api/admin/dashboard/stats");
+      const statsResponse = await fetch(`/api/admin/dashboard/stats?t=${timestamp}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+      });
       if (statsResponse.ok) {
         const statsData = await statsResponse.json();
         setStats(statsData);
       }
 
       // Fetch recent bookings
-      const bookingsResponse = await fetch("/api/bookings?limit=5");
+      const bookingsResponse = await fetch(`/api/bookings?limit=5&t=${timestamp}`, {
+        cache: 'no-store',
+      });
       if (bookingsResponse.ok) {
         const bookingsData = await bookingsResponse.json();
         setRecentBookings(bookingsData.bookings?.slice(0, 5) || []);
       }
 
       // Fetch recent users
-      const usersResponse = await fetch("/api/users?limit=5");
+      const usersResponse = await fetch(`/api/users?limit=5&t=${timestamp}`, {
+        cache: 'no-store',
+      });
       if (usersResponse.ok) {
         const usersData = await usersResponse.json();
         setRecentUsers(usersData.users?.slice(0, 5) || []);
@@ -77,15 +88,19 @@ export default function AdminDashboard() {
     }
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status: string | null | undefined) => {
+    if (!status) return "bg-gray-100 text-gray-800";
+    
     switch (status.toLowerCase()) {
       case "confirmed":
       case "active":
+      case "paid":
         return "bg-green-100 text-green-800";
       case "pending":
         return "bg-yellow-100 text-yellow-800";
       case "cancelled":
       case "inactive":
+      case "failed":
         return "bg-red-100 text-red-800";
       default:
         return "bg-gray-100 text-gray-800";
@@ -93,19 +108,29 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-primary)]">
-      <Header />
-
-      <div className="flex mt-20">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <div className="flex">
         <AdminSidebar />
 
         <main className="flex-1 p-8">
           <div className="mb-8">
-            <div className="flex items-center gap-2 mb-2">
-              <Calendar className="w-8 h-8 text-[var(--color-accent-sage)]" />
-              <h1 className="text-4xl font-bold" style={{ fontFamily: "var(--font-display)" }}>
-                Dashboard
-              </h1>
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <Calendar className="w-8 h-8 text-[var(--color-accent-sage)]" />
+                <h1 className="text-4xl font-bold" style={{ fontFamily: "var(--font-display)" }}>
+                  Dashboard
+                </h1>
+              </div>
+              <Button
+                onClick={fetchDashboardData}
+                disabled={loading}
+                variant="outline"
+                size="sm"
+                className="gap-2"
+              >
+                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                Refresh
+              </Button>
             </div>
             <p className="text-[var(--color-neutral-dark)]">Monitor your platform's performance</p>
           </div>
@@ -269,8 +294,6 @@ export default function AdminDashboard() {
           )}
         </main>
       </div>
-
-      <Footer />
     </div>
   );
 }

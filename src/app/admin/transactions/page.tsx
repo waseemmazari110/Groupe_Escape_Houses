@@ -1,13 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import AdminSidebar from "@/components/AdminSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CreditCard, Search, TrendingUp, DollarSign, XCircle, CheckCircle2 } from "lucide-react";
+import { CreditCard, Search, TrendingUp, DollarSign, XCircle, CheckCircle2, RefreshCw } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 
@@ -16,6 +14,7 @@ interface Transaction {
   memberName: string;
   memberEmail: string;
   amount: number;
+  commission: number;
   plan: string;
   status: string;
   date: string;
@@ -24,6 +23,8 @@ interface Transaction {
 
 interface TransactionStats {
   totalRevenue: number;
+  totalCommission: number;
+  netRevenue: number;
   successful: number;
   pending: number;
   failed: number;
@@ -44,7 +45,13 @@ export default function TransactionsPage() {
   const fetchTransactions = async () => {
     try {
       setLoading(true);
-      const response = await fetch("/api/transactions");
+      const timestamp = new Date().getTime();
+      const response = await fetch(`/api/transactions?t=${timestamp}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+      });
       if (response.ok) {
         const data = await response.json();
         setTransactions(data.transactions || []);
@@ -59,7 +66,13 @@ export default function TransactionsPage() {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch("/api/transactions/stats");
+      const timestamp = new Date().getTime();
+      const response = await fetch(`/api/transactions/stats?t=${timestamp}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+      });
       if (response.ok) {
         const data = await response.json();
         setStats(data);
@@ -98,26 +111,39 @@ export default function TransactionsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-primary)]">
-      <Header />
-
-      <div className="flex mt-20">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <div className="flex">
         <AdminSidebar />
 
         <main className="flex-1 p-8">
           <div className="mb-8">
-            <div className="flex items-center gap-2 mb-2">
-              <CreditCard className="w-8 h-8 text-[var(--color-accent-sage)]" />
-              <h1 className="text-4xl font-bold" style={{ fontFamily: "var(--font-display)" }}>
-                Transactions
-              </h1>
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <CreditCard className="w-8 h-8 text-[var(--color-accent-sage)]" />
+                <h1 className="text-4xl font-bold" style={{ fontFamily: "var(--font-display)" }}>
+                  Transactions
+                </h1>
+              </div>
+              <Button
+                onClick={() => {
+                  fetchTransactions();
+                  fetchStats();
+                }}
+                disabled={loading}
+                variant="outline"
+                size="sm"
+                className="gap-2"
+              >
+                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                Refresh
+              </Button>
             </div>
             <p className="text-[var(--color-neutral-dark)]">View all payment transactions from owners</p>
           </div>
 
           {/* Stats Cards */}
           {stats && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium text-green-900">Total Revenue</CardTitle>
@@ -130,14 +156,43 @@ export default function TransactionsPage() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+              <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-blue-900">Successful</CardTitle>
+                  <CardTitle className="text-sm font-medium text-purple-900">Total Commission (10%)</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center justify-between">
-                    <div className="text-3xl font-bold text-blue-900">{stats.successful}</div>
+                    <div className="text-3xl font-bold text-purple-900">£{stats.totalCommission.toFixed(2)}</div>
+                    <DollarSign className="w-8 h-8 text-purple-600" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium text-blue-900">Net Revenue (After Commission)</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center justify-between">
+                    <div className="text-3xl font-bold text-blue-900">£{stats.netRevenue.toFixed(2)}</div>
                     <CheckCircle2 className="w-8 h-8 text-blue-600" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Transaction Status Cards */}
+          {stats && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <Card className="bg-gradient-to-br from-emerald-50 to-emerald-100 border-emerald-200">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium text-emerald-900">Successful</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center justify-between">
+                    <div className="text-3xl font-bold text-emerald-900">{stats.successful}</div>
+                    <CheckCircle2 className="w-8 h-8 text-emerald-600" />
                   </div>
                 </CardContent>
               </Card>
@@ -251,6 +306,7 @@ export default function TransactionsPage() {
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Member</th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Plan</th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Commission (10%)</th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
                       </tr>
@@ -269,6 +325,7 @@ export default function TransactionsPage() {
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-900">{transaction.plan}</td>
                           <td className="px-6 py-4 text-sm font-bold text-gray-900">£{transaction.amount.toFixed(2)}</td>
+                          <td className="px-6 py-4 text-sm font-bold text-purple-700">£{transaction.commission.toFixed(2)}</td>
                           <td className="px-6 py-4">
                             <Badge className={getStatusColor(transaction.status)}>{transaction.status}</Badge>
                           </td>
@@ -285,8 +342,6 @@ export default function TransactionsPage() {
           </Card>
         </main>
       </div>
-
-      <Footer />
     </div>
   );
 }

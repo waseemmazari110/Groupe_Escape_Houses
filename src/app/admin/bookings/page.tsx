@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { Search, Filter, X, Eye, Edit2, Trash2, Calendar, DollarSign, Users, TrendingUp, Home, Download } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import AdminSidebar from "@/components/AdminSidebar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -220,10 +218,8 @@ export default function AdminBookingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-primary)]">
-      <Header />
-
-      <div className="flex mt-20">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <div className="flex">
         <AdminSidebar />
 
         <main className="flex-1 p-8">
@@ -504,11 +500,9 @@ export default function AdminBookingsPage() {
               </CardContent>
             </Card>
           )}
-        </main>
-      </div>
 
-      {/* View Details Dialog */}
-      <Dialog open={isDetailsDialogOpen} onOpenChange={setIsDetailsDialogOpen}>
+          {/* View Details Dialog */}
+          <Dialog open={isDetailsDialogOpen} onOpenChange={setIsDetailsDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Booking Details</DialogTitle>
@@ -626,8 +620,8 @@ export default function AdminBookingsPage() {
         </DialogContent>
       </Dialog>
 
-      {/* Edit Booking Dialog */}
-      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+          {/* Edit Booking Dialog */}
+          <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit Booking</DialogTitle>
@@ -701,8 +695,6 @@ export default function AdminBookingsPage() {
       </Dialog>
         </main>
       </div>
-
-      <Footer />
     </div>
   );
 }

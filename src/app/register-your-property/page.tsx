@@ -141,7 +141,7 @@ export default function RegisterYourProperty() {
                 
                 <div className="mb-8">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold">£99.99</span>
+                    <span className="text-4xl font-bold">£450</span>
                     <span className="text-[var(--color-neutral-dark)]">+ VAT / year</span>
                   </div>
                   <p className="text-sm text-[var(--color-neutral-dark)] mt-1">or £9.99 per month</p>
@@ -186,7 +186,7 @@ export default function RegisterYourProperty() {
                 
                 <div className="mb-8">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold">£149.99</span>
+                    <span className="text-4xl font-bold">£650</span>
                     <span className="text-[var(--color-neutral-dark)]">+ VAT / year</span>
                   </div>
                   <p className="text-sm text-[var(--color-neutral-dark)] mt-1 text-[#71717A] font-semibold">SAVE £30 VALUE</p>
@@ -228,7 +228,7 @@ export default function RegisterYourProperty() {
                 
                 <div className="mb-8">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold">£199.99</span>
+                    <span className="text-4xl font-bold">£850</span>
                     <span className="text-[var(--color-neutral-dark)]">+ VAT / year</span>
                   </div>
                   <p className="text-sm text-[var(--color-neutral-dark)] mt-1 text-[var(--color-accent-gold)] font-semibold">SAVE £40 VALUE</p>

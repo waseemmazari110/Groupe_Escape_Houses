@@ -20,8 +20,7 @@ export async function POST(
       .update(properties)
       .set({
         status: "approved",
-        approvedAt: new Date().toISOString(),
-        isPublished: 1,
+        isPublished: true,
       })
       .where(eq(properties.id, propertyId));
 

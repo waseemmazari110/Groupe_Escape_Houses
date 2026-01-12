@@ -56,43 +56,6 @@ export const auth = betterAuth({
 	},
 	emailAndPassword: {
 		enabled: true,
-		password: {
-			verify: async ({ password, hash }) => {
-				console.log("[Auth Debug] Verifying password for hash:", hash.substring(0, 10) + "...");
-				// 1. Check if the hash looks like the legacy MD5 format (32 hex characters)
-				if (hash.length === 32 && /^[0-9a-f]+$/.test(hash)) {
-					const md5Hash = crypto.createHash("md5").update(password).digest("hex");
-					const match = md5Hash === hash;
-					console.log("[Auth Debug] MD5 comparison:", match ? "Match" : "No match");
-					return match;
-				}
-
-				// 2. Try standard scrypt verification WITH HMAC (if secret is present)
-				const secret = process.env.BETTER_AUTH_SECRET;
-				if (secret) {
-					try {
-						const passwordToVerify = await makeSignature(password, secret);
-						const isValid = await verifyPassword({ password: passwordToVerify, hash });
-						if (isValid) {
-							console.log("[Auth Debug] Scrypt with HMAC: Match");
-							return true;
-						}
-					} catch (e) {
-						console.error("[Auth Debug] Scrypt with HMAC error:", e);
-					}
-				}
-
-				// 3. Try standard scrypt verification WITHOUT HMAC
-				try {
-					const isValid = await verifyPassword({ password, hash });
-					console.log("[Auth Debug] Scrypt without HMAC:", isValid ? "Match" : "No match");
-					return isValid;
-				} catch (e) {
-					console.error("[Auth Debug] Scrypt without HMAC error:", e);
-					return false;
-				}
-			}
-		}
 	},
 	user: {
 		additionalFields: {

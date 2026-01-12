@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import AdminSidebar from "@/components/AdminSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -103,10 +101,8 @@ export default function MembershipsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-primary)]">
-      <Header />
-
-      <div className="flex mt-20">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <div className="flex">
         <AdminSidebar />
 
         <main className="flex-1 p-8">
@@ -291,8 +287,6 @@ export default function MembershipsPage() {
           </Card>
         </main>
       </div>
-
-      <Footer />
     </div>
   );
 }

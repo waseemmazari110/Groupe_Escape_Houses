@@ -2,15 +2,14 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import AdminLayout from "@/components/AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
-import { Eye, EyeOff, Loader2, Shield } from "lucide-react";
+import { Eye, EyeOff, Loader2, Shield, Lock } from "lucide-react";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -40,7 +39,8 @@ export default function AdminLoginPage() {
 
       if (data?.user) {
         // Check if user is admin
-        if (data.user.role !== "admin") {
+        const userRole = (data.user as any).role;
+        if (userRole !== "admin") {
           toast.error("Access denied. Admin credentials required.");
           await authClient.signOut();
           setIsLoading(false);
@@ -59,22 +59,21 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <>
-      <Header />
-      <main className="min-h-screen bg-[var(--color-bg-primary)] pt-32 pb-20 px-4">
-        <div className="max-w-md mx-auto">
-          <Card className="shadow-2xl">
-            <CardHeader className="space-y-4">
+    <AdminLayout title="Admin Login" showHeader={false}>
+      <div className="min-h-[80vh] flex items-center justify-center">
+        <div className="w-full max-w-md">
+          <Card className="shadow-2xl border-slate-200">
+            <CardHeader className="space-y-4 bg-gradient-to-br from-emerald-50 to-teal-50">
               <div className="flex justify-center">
-                <div className="w-16 h-16 bg-[var(--color-accent-sage)] rounded-full flex items-center justify-center">
-                  <Shield className="w-8 h-8 text-white" />
+                <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <Lock className="w-8 h-8 text-white" />
                 </div>
               </div>
-              <CardTitle className="text-3xl text-center" style={{ fontFamily: "var(--font-display)" }}>
-                Admin Login
+              <CardTitle className="text-3xl text-center font-bold text-slate-800">
+                Admin Access
               </CardTitle>
-              <CardDescription className="text-center">
-                Access the admin control panel
+              <CardDescription className="text-center text-slate-600">
+                Secure login to admin dashboard
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -121,32 +120,31 @@ export default function AdminLoginPage() {
 
                 <Button
                   type="submit"
-                  className="w-full"
+                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold py-6 shadow-md"
                   disabled={isLoading}
-                  style={{ 
-                    background: "var(--color-accent-sage)", 
-                    color: "white" 
-                  }}
                 >
                   {isLoading ? (
                     <>
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Signing in...
+                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                      Authenticating...
                     </>
                   ) : (
                     <>
-                      <Shield className="w-4 h-4 mr-2" />
-                      Sign In as Admin
+                      <Shield className="w-5 h-5 mr-2" />
+                      Access Admin Portal
                     </>
                   )}
                 </Button>
 
-                <div className="text-center text-sm text-gray-500">
-                  <p>Restricted access area</p>
-                  <p className="mt-1">
+                <div className="text-center text-sm text-slate-500 mt-4 pt-4 border-t border-slate-200">
+                  <p className="flex items-center justify-center gap-2">
+                    <Shield className="w-4 h-4 text-amber-500" />
+                    <span className="font-medium">Restricted Access</span>
+                  </p>
+                  <p className="mt-2">
                     Not an admin?{" "}
-                    <a href="/owner-login" className="text-[var(--color-accent-sage)] hover:underline">
-                      Owner Login
+                    <a href="/owner-login" className="text-emerald-600 hover:text-emerald-700 font-medium hover:underline">
+                      Owner Portal
                     </a>
                   </p>
                 </div>
@@ -154,8 +152,7 @@ export default function AdminLoginPage() {
             </CardContent>
           </Card>
         </div>
-      </main>
-      <Footer />
-    </>
+      </div>
+    </AdminLayout>
   );
 }

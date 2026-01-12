@@ -20,7 +20,7 @@ export async function POST(
       .update(properties)
       .set({
         status: "rejected",
-        isPublished: 0,
+        isPublished: false,
       })
       .where(eq(properties.id, propertyId));
 
