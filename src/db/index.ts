@@ -3,23 +3,21 @@ import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
 import * as schema from '@/db/schema';
 
-// Validate environment variables
+// Validate environment variables only if they're needed at runtime
 if (!process.env.TURSO_CONNECTION_URL) {
-  console.error("TURSO_CONNECTION_URL is not set!");
-  throw new Error("Database connection URL is missing");
+  console.warn("TURSO_CONNECTION_URL is not set - database will fail at runtime");
 }
 
 if (!process.env.TURSO_AUTH_TOKEN) {
-  console.error("TURSO_AUTH_TOKEN is not set!");
-  throw new Error("Database auth token is missing");
+  console.warn("TURSO_AUTH_TOKEN is not set - database will fail at runtime");
 }
 
 const client = createClient({
-  url: process.env.TURSO_CONNECTION_URL,
-  authToken: process.env.TURSO_AUTH_TOKEN,
+  url: process.env.TURSO_CONNECTION_URL || 'libsql://dummy.turso.io',
+  authToken: process.env.TURSO_AUTH_TOKEN || 'dummy_token',
 });
 
-console.log("Database initialized with URL:", process.env.TURSO_CONNECTION_URL.substring(0, 30) + "...");
+console.log("Database client created");
 
 export const db = drizzle(client, { schema });
 
